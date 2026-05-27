@@ -5,484 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>HPTI人格测试</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: #1e1a29;
             background-image: radial-gradient(circle at 20% 10%, #332b40 0%, transparent 35%),
-                radial-gradient(circle at 80% 90%, #2d2740 0%, transparent 40%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+                              radial-gradient(circle at 80% 90%, #2d2740 0%, transparent 40%);
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
             font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
-            padding: 16px;
-            color: #e8e0f0;
+            padding: 16px; color: #e8e0f0;
         }
         .container {
-            width: 100%;
-            max-width: 620px;
-            background: rgba(30, 25, 40, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 32px;
-            padding: 32px 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 215, 150, 0.2);
-            border: 1px solid rgba(255, 210, 130, 0.2);
-            transition: all 0.2s ease;
+            width: 100%; max-width: 620px; background: rgba(30, 25, 40, 0.85);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-radius: 32px;
+            padding: 32px 24px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 215, 150, 0.2);
+            border: 1px solid rgba(255, 210, 130, 0.2); transition: all 0.2s ease;
         }
-        .header {
-            text-align: center;
-            margin-bottom: 24px;
-        }
-        .header .emoji {
-            font-size: 48px;
-            display: block;
-            margin-bottom: 6px;
-            filter: drop-shadow(0 0 8px #daa06a);
-        }
-        h1 {
-            font-size: 28px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #f9d390, #e6a4b4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: 2px;
-        }
-        .subtitle {
-            color: #bcacc4;
-            font-size: 13px;
-            letter-spacing: 2px;
-            margin-top: 4px;
-        }
-        .progress-wrap {
-            margin: 10px 0 20px;
-        }
-        .progress-bar {
-            height: 6px;
-            background: #3b3448;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #e6b87a, #c97bbf);
-            border-radius: 10px;
-            transition: width 0.4s ease;
-        }
-        .progress-num {
-            text-align: right;
-            font-size: 12px;
-            color: #9b8eaa;
-            margin-top: 6px;
-        }
-        .question-card {
-            background: rgba(45, 35, 55, 0.7);
-            border-radius: 20px;
-            padding: 20px 18px;
-            margin-bottom: 16px;
-            border: 1px solid rgba(215, 185, 140, 0.25);
-            animation: fadeUp 0.35s ease;
-        }
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .q-text {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 14px;
-            color: #f1e5ff;
-            line-height: 1.5;
-            word-break: break-word;
-        }
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+        .header { text-align: center; margin-bottom: 24px; }
+        .header .emoji { font-size: 48px; display: block; margin-bottom: 6px; filter: drop-shadow(0 0 8px #daa06a); }
+        h1 { font-size: 28px; font-weight: 700; background: linear-gradient(135deg, #f9d390, #e6a4b4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: 2px; }
+        .subtitle { color: #bcacc4; font-size: 13px; letter-spacing: 2px; margin-top: 4px; }
+        .progress-wrap { margin: 10px 0 20px; }
+        .progress-bar { height: 6px; background: #3b3448; border-radius: 10px; overflow: hidden; }
+        .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #e6b87a, #c97bbf); border-radius: 10px; transition: width 0.4s ease; }
+        .progress-num { text-align: right; font-size: 12px; color: #9b8eaa; margin-top: 6px; }
+        .question-card { background: rgba(45, 35, 55, 0.7); border-radius: 20px; padding: 20px 18px; margin-bottom: 16px; border: 1px solid rgba(215, 185, 140, 0.25); animation: fadeUp 0.35s ease; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .q-text { font-size: 16px; font-weight: 600; margin-bottom: 14px; color: #f1e5ff; line-height: 1.5; word-break: break-word; }
+        .options { display: flex; flex-direction: column; gap: 8px; }
         .opt-btn {
-            background: rgba(60, 45, 75, 0.8);
-            border: 1.5px solid rgba(190, 150, 130, 0.5);
-            border-radius: 14px;
-            padding: 12px 14px;
-            color: #e3d7f0;
-            font-size: 14px;
-            cursor: pointer;
-            text-align: left;
-            transition: all 0.2s;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            backdrop-filter: blur(4px);
-            -webkit-tap-highlight-color: transparent;
-            word-break: break-word;
-            overflow-wrap: break-word;
-            line-height: 1.5;
+            background: rgba(60, 45, 75, 0.8); border: 1.5px solid rgba(190, 150, 130, 0.5);
+            border-radius: 14px; padding: 12px 14px; color: #e3d7f0; font-size: 14px; cursor: pointer;
+            text-align: left; transition: all 0.2s; display: flex; align-items: flex-start; gap: 10px;
+            backdrop-filter: blur(4px); -webkit-tap-highlight-color: transparent; word-break: break-word;
+            overflow-wrap: break-word; line-height: 1.5;
         }
-        .opt-btn:hover {
-            border-color: #dba970;
-            background: rgba(80, 55, 95, 0.7);
-            transform: translateY(-1px);
-        }
-        .opt-btn.selected {
-            background: rgba(200, 140, 80, 0.25);
-            border-color: #e6b87a;
-            box-shadow: 0 0 14px rgba(230, 170, 100, 0.3);
-            color: #ffe5c4;
-            font-weight: 600;
-        }
-        .opt-btn.opt-mid {
-            border-style: dashed;
-            opacity: 0.8;
-        }
-        .opt-letter {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: rgba(255, 215, 150, 0.2);
-            font-weight: bold;
-            font-size: 12px;
-            color: #f9d390;
-            flex-shrink: 0;
-            align-self: flex-start;
-            margin-top: 1px;
-        }
-        .opt-btn.selected .opt-letter {
-            background: #dba05a;
-            color: #1e1826;
-        }
-        .opt-text {
-            flex: 1;
-            min-width: 0;
-        }
-        .opt-intensity {
-            font-size: 10px;
-            color: #9b8eaa;
-            margin-left: 4px;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-        .nav-btns {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 24px;
-            gap: 12px;
-        }
-        .btn {
-            padding: 12px 28px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            border: none;
-            transition: all 0.2s;
-            letter-spacing: 1px;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .btn:disabled {
-            opacity: 0.4;
-            pointer-events: none;
-        }
-        .btn-primary {
-            background: #dba05a;
-            color: #1e1826;
-            box-shadow: 0 4px 16px rgba(230, 160, 70, 0.4);
-        }
-        .btn-primary:hover {
-            background: #e6b46c;
-            transform: translateY(-2px);
-        }
-        .btn-outline {
-            background: transparent;
-            border: 1.5px solid #9b8eaa;
-            color: #ddd;
-        }
-        .btn-outline:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: #c9b8d8;
-        }
-        .result-area {
-            animation: fadeUp 0.5s ease;
-        }
-        .result-badge {
-            text-align: center;
-            margin-bottom: 20px;
-            position: relative;
-        }
-        .result-emoji {
-            font-size: 70px;
-        }
-        .result-code {
-            font-size: 44px;
-            font-weight: 800;
-            letter-spacing: 8px;
-            background: linear-gradient(135deg, #f5c98e, #dd9ab0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin: 8px 0;
-        }
-        .result-name {
-            font-size: 26px;
-            font-weight: 700;
-            color: #f3e0ff;
-        }
-        .rarity-badge {
-            display: inline-block;
-            margin-top: 8px;
-            padding: 4px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-        .rarity-common {
-            background: rgba(176, 160, 192, 0.2);
-            color: #b0a0c0;
-            border: 1px solid rgba(176, 160, 192, 0.4);
-        }
-        .rarity-rare {
-            background: rgba(126, 200, 160, 0.2);
-            color: #7ec8a0;
-            border: 1px solid rgba(126, 200, 160, 0.4);
-        }
-        .rarity-epic {
-            background: rgba(201, 123, 191, 0.2);
-            color: #c97bbf;
-            border: 1px solid rgba(201, 123, 191, 0.4);
-        }
-        .rarity-legendary {
-            background: rgba(255, 170, 0, 0.2);
-            color: #ffaa00;
-            border: 1px solid rgba(255, 170, 0, 0.4);
-            animation: glowPulse 2s ease-in-out infinite;
-        }
-
-        .match-section {
-            background: rgba(45, 32, 55, 0.8);
-            border-radius: 16px;
-            padding: 16px 20px;
-            margin: 16px 0;
-            border: 1px solid rgba(215, 185, 140, 0.3);
-            text-align: center;
-        }
-        .match-label {
-            font-size: 12px;
-            color: #9b8eaa;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-        .match-percent {
-            font-size: 48px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #f9d390, #e6b87a);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1;
-            margin-bottom: 6px;
-        }
-        .match-percent.perfect {
-            background: linear-gradient(135deg, #ffd700, #ffaa00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: glowPulse 1.5s ease-in-out infinite;
-        }
-        @keyframes glowPulse {
-            0%,
-            100% {
-                filter: drop-shadow(0 0 6px rgba(255, 170, 0, 0.5));
-            }
-            50% {
-                filter: drop-shadow(0 0 16px rgba(255, 170, 0, 0.9));
-            }
-        }
-        .match-bar-outer {
-            height: 8px;
-            background: #3b3448;
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 8px auto;
-            max-width: 300px;
-        }
-        .match-bar-inner {
-            height: 100%;
-            border-radius: 10px;
-            transition: width 0.8s ease;
-            background: linear-gradient(90deg, #dba05a, #f9d390);
-        }
-        .match-bar-inner.perfect {
-            background: linear-gradient(90deg, #ffaa00, #ffd700);
-            box-shadow: 0 0 12px rgba(255, 170, 0, 0.5);
-        }
-        .match-detail {
-            font-size: 12px;
-            color: #b0a0c0;
-            margin-top: 6px;
-            letter-spacing: 1px;
-        }
-        .match-detail span {
-            color: #f5d7b0;
-            font-weight: 600;
-        }
-        .dim-match-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            justify-content: center;
-            margin-top: 10px;
-        }
-        .dim-dot {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            transition: all 0.3s;
-        }
-        .dim-dot.hit {
-            background: rgba(219, 160, 90, 0.35);
-            color: #f9d390;
-            border: 2px solid rgba(249, 211, 144, 0.7);
-            box-shadow: 0 0 8px rgba(219, 160, 90, 0.3);
-        }
-        .dim-dot.miss {
-            background: rgba(120, 100, 140, 0.2);
-            color: #7b6e8a;
-            border: 2px solid rgba(150, 130, 160, 0.3);
-        }
-
-        .result-desc {
-            background: rgba(45, 32, 55, 0.7);
-            border-radius: 18px;
-            padding: 20px;
-            margin: 16px 0;
-            border-left: 4px solid #dba05a;
-            font-size: 14px;
-            line-height: 1.7;
-            color: #ddd;
-            word-break: break-word;
-        }
-        .result-summary {
-            background: rgba(60, 45, 75, 0.6);
-            border-radius: 14px;
-            padding: 14px 16px;
-            margin: 12px 0;
-            font-size: 13px;
-            color: #e5d7f5;
-            line-height: 1.6;
-            border: 1px dashed rgba(219, 160, 90, 0.3);
-        }
-        .result-traits {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 12px 0;
-        }
-        .trait-tag {
-            background: rgba(220, 165, 100, 0.2);
-            color: #f5d7b0;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 13px;
-            letter-spacing: 0.5px;
-        }
-        .share-box {
-            background: #2c2338;
-            border-radius: 16px;
-            padding: 16px;
-            margin-top: 20px;
-            text-align: center;
-            border: 1px dashed #6e5c78;
-        }
-        .share-text {
-            background: transparent;
-            border: none;
-            color: #cdc0e0;
-            width: 100%;
-            font-size: 13px;
-            resize: none;
-            text-align: center;
-            font-family: inherit;
-            outline: none;
-            word-break: break-word;
-        }
-        .copy-btn {
-            margin-top: 10px;
-            background: #453750;
-            border: none;
-            color: #f0e2ff;
-            padding: 8px 24px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .copy-btn:hover {
-            background: #5d4b6e;
-        }
-        .toast {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #dba05a;
-            color: #1e1826;
-            padding: 10px 24px;
-            border-radius: 30px;
-            font-weight: bold;
-            z-index: 999;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-        }
-        .toast.show {
-            opacity: 1;
-        }
+        .opt-btn:hover { border-color: #dba970; background: rgba(80, 55, 95, 0.7); transform: translateY(-1px); }
+        .opt-btn.selected { background: rgba(200, 140, 80, 0.25); border-color: #e6b87a; box-shadow: 0 0 14px rgba(230, 170, 100, 0.3); color: #ffe5c4; font-weight: 600; }
+        .opt-btn.opt-mid { border-style: dashed; opacity: 0.8; }
+        .opt-letter { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: rgba(255, 215, 150, 0.2); font-weight: bold; font-size: 12px; color: #f9d390; flex-shrink: 0; align-self: flex-start; margin-top: 1px; }
+        .opt-btn.selected .opt-letter { background: #dba05a; color: #1e1826; }
+        .opt-text { flex: 1; min-width: 0; }
+        .opt-intensity { font-size: 10px; color: #9b8eaa; margin-left: 4px; white-space: nowrap; flex-shrink: 0; }
+        .nav-btns { display: flex; justify-content: space-between; margin-top: 24px; gap: 12px; }
+        .btn { padding: 12px 28px; border-radius: 30px; font-weight: 600; font-size: 15px; cursor: pointer; border: none; transition: all 0.2s; letter-spacing: 1px; -webkit-tap-highlight-color: transparent; }
+        .btn:disabled { opacity: 0.4; pointer-events: none; }
+        .btn-primary { background: #dba05a; color: #1e1826; box-shadow: 0 4px 16px rgba(230, 160, 70, 0.4); }
+        .btn-primary:hover { background: #e6b46c; transform: translateY(-2px); }
+        .btn-outline { background: transparent; border: 1.5px solid #9b8eaa; color: #ddd; }
+        .btn-outline:hover { background: rgba(255, 255, 255, 0.06); border-color: #c9b8d8; }
+        .result-area { animation: fadeUp 0.5s ease; }
+        .result-badge { text-align: center; margin-bottom: 20px; position: relative; }
+        .result-emoji { font-size: 70px; }
+        .result-code { font-size: 44px; font-weight: 800; letter-spacing: 8px; background: linear-gradient(135deg, #f5c98e, #dd9ab0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 8px 0; }
+        .result-name { font-size: 26px; font-weight: 700; color: #f3e0ff; }
+        .rarity-badge { display: inline-block; margin-top: 8px; padding: 4px 16px; border-radius: 20px; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+        .rarity-common { background: rgba(176, 160, 192, 0.2); color: #b0a0c0; border: 1px solid rgba(176, 160, 192, 0.4); }
+        .rarity-rare { background: rgba(126, 200, 160, 0.2); color: #7ec8a0; border: 1px solid rgba(126, 200, 160, 0.4); }
+        .rarity-epic { background: rgba(201, 123, 191, 0.2); color: #c97bbf; border: 1px solid rgba(201, 123, 191, 0.4); }
+        .rarity-legendary { background: rgba(255, 170, 0, 0.2); color: #ffaa00; border: 1px solid rgba(255, 170, 0, 0.4); animation: glowPulse 2s ease-in-out infinite; }
+        .match-section { background: rgba(45, 32, 55, 0.8); border-radius: 16px; padding: 16px 20px; margin: 16px 0; border: 1px solid rgba(215, 185, 140, 0.3); text-align: center; }
+        .match-label { font-size: 12px; color: #9b8eaa; letter-spacing: 2px; margin-bottom: 8px; text-transform: uppercase; }
+        .match-percent { font-size: 48px; font-weight: 800; background: linear-gradient(135deg, #f9d390, #e6b87a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; margin-bottom: 6px; }
+        .match-percent.perfect { background: linear-gradient(135deg, #ffd700, #ffaa00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: glowPulse 1.5s ease-in-out infinite; }
+        @keyframes glowPulse { 0%, 100% { filter: drop-shadow(0 0 6px rgba(255, 170, 0, 0.5)); } 50% { filter: drop-shadow(0 0 16px rgba(255, 170, 0, 0.9)); } }
+        .match-bar-outer { height: 8px; background: #3b3448; border-radius: 10px; overflow: hidden; margin: 8px auto; max-width: 300px; }
+        .match-bar-inner { height: 100%; border-radius: 10px; transition: width 0.8s ease; background: linear-gradient(90deg, #dba05a, #f9d390); }
+        .match-bar-inner.perfect { background: linear-gradient(90deg, #ffaa00, #ffd700); box-shadow: 0 0 12px rgba(255, 170, 0, 0.5); }
+        .match-detail { font-size: 12px; color: #b0a0c0; margin-top: 6px; letter-spacing: 1px; }
+        .match-detail span { color: #f5d7b0; font-weight: 600; }
+        .dim-match-row { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 10px; }
+        .dim-dot { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; letter-spacing: 1px; transition: all 0.3s; }
+        .dim-dot.hit { background: rgba(219, 160, 90, 0.35); color: #f9d390; border: 2px solid rgba(249, 211, 144, 0.7); box-shadow: 0 0 8px rgba(219, 160, 90, 0.3); }
+        .dim-dot.miss { background: rgba(120, 100, 140, 0.2); color: #7b6e8a; border: 2px solid rgba(150, 130, 160, 0.3); }
+        .result-desc { background: rgba(45, 32, 55, 0.7); border-radius: 18px; padding: 20px; margin: 16px 0; border-left: 4px solid #dba05a; font-size: 14px; line-height: 1.7; color: #ddd; word-break: break-word; }
+        .result-summary { background: rgba(60, 45, 75, 0.6); border-radius: 14px; padding: 14px 16px; margin: 12px 0; font-size: 13px; color: #e5d7f5; line-height: 1.6; border: 1px dashed rgba(219, 160, 90, 0.3); }
+        .result-traits { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+        .trait-tag { background: rgba(220, 165, 100, 0.2); color: #f5d7b0; padding: 6px 14px; border-radius: 20px; font-size: 13px; letter-spacing: 0.5px; }
+        .share-box { background: #2c2338; border-radius: 16px; padding: 16px; margin-top: 20px; text-align: center; border: 1px dashed #6e5c78; }
+        .share-text { background: transparent; border: none; color: #cdc0e0; width: 100%; font-size: 13px; resize: none; text-align: center; font-family: inherit; outline: none; word-break: break-word; }
+        .copy-btn { margin-top: 10px; background: #453750; border: none; color: #f0e2ff; padding: 8px 24px; border-radius: 20px; cursor: pointer; transition: 0.2s; }
+        .copy-btn:hover { background: #5d4b6e; }
+        .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #dba05a; color: #1e1826; padding: 10px 24px; border-radius: 30px; font-weight: bold; z-index: 999; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+        .toast.show { opacity: 1; }
         @media (max-width: 450px) {
-            .container {
-                padding: 20px 14px;
-            }
-            .result-code {
-                font-size: 32px;
-                letter-spacing: 4px;
-            }
-            .match-percent {
-                font-size: 38px;
-            }
-            .opt-btn {
-                font-size: 13px;
-                padding: 10px 12px;
-            }
-            .q-text {
-                font-size: 14px;
-            }
-            .opt-letter {
-                width: 24px;
-                height: 24px;
-                font-size: 10px;
-            }
+            .container { padding: 20px 14px; }
+            .result-code { font-size: 32px; letter-spacing: 4px; }
+            .match-percent { font-size: 38px; }
+            .opt-btn { font-size: 13px; padding: 10px 12px; }
+            .q-text { font-size: 14px; }
+            .opt-letter { width: 24px; height: 24px; font-size: 10px; }
         }
     </style>
 </head>
@@ -508,50 +119,90 @@
     <div class="toast" id="toast">✅ 已复制</div>
 
     <script>
-        // ===================== 题库 (每维6题，每题5选项) =====================
-        // 选项分数: A=+2, B=+1, C=0, D=-1, E=-2 (正分=倾向第一个字母)
+        // ==================== 简道云数据上报功能 (已配置你的密钥) ====================
+        const JIANDAOYUN_CONFIG = {
+            apiKey: '6UNURmpnm5z9vsQeX2kNHMFvsN3lm2lvdD52aCa1f4629F7509110849a2f297d7',
+            appId: '6a164f2db9472085f86c54dd',
+            entryId: '6a164f53adb83f31bd2f64f8'
+        };
+        const API_URL = `https://api.jiandaoyun.com/api/v4/app/${JIANDAOYUN_CONFIG.appId}/entry/${JIANDAOYUN_CONFIG.entryId}/data_create`;
+
+        // 获取公网IP
+        async function getPublicIP() {
+            try {
+                const res = await fetch('https://api.ipify.org?format=json');
+                const data = await res.json();
+                return data.ip;
+            } catch (e) {
+                return '获取失败';
+            }
+        }
+
+        // 上报事件
+        async function reportToJianDaoYun(eventData) {
+            const ip = await getPublicIP();
+            const payload = {
+                data: {
+                    'IP地址': { value: ip },
+                    '事件类型': { value: eventData.type || '未知事件' },
+                    '当前题目': { value: eventData.question || '' },
+                    '用户答案': { value: eventData.answer || '' },
+                    '测试结果': { value: eventData.result || '' }
+                }
+            };
+            try {
+                await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${JIANDAOYUN_CONFIG.apiKey}`
+                    },
+                    body: JSON.stringify(payload)
+                });
+            } catch (error) {
+                console.error('简道云上报失败:', error);
+            }
+        }
+
+        // 页面加载时自动记录“页面访问”
+        window.addEventListener('load', () => {
+            reportToJianDaoYun({ type: '页面访问' });
+        });
+    </script>
+
+    <script>
+        // ===================== HPTI 原有核心逻辑 =====================
         const allQuestions = [
-            // dim: sex (O=开放 vs R=压抑)
             { dim: "sex", text: "面对一个浑身散发魅力的陌生人，你的本能反应是？", optA: "直接脑补一整部浪漫电影，甚至想主动出击", optB: "多看几眼，心里有点小波动", optC: "没什么特别感觉，和平常一样", optD: "有点不自在，假装在看风景", optE: "立刻回避目光，心跳加速只想逃离" },
             { dim: "sex", text: "关于那些不可描述的幻想，你通常？", optA: "丰富多彩，觉得是人类瑰宝，甚至可以写成小说", optB: "偶尔会有，觉得挺正常的", optC: "说不上来，没太注意过", optD: "很少出现，出现了也会赶紧转移注意力", optE: "几乎不幻想，觉得那方面的事有点羞耻" },
             { dim: "sex", text: "有人突然开黄腔，你的反应？", optA: "接梗王上线，车速直接飙到180", optB: "跟着笑一笑，觉得挺有趣", optC: "看情况，有时候接有时候装傻", optD: "有点尴尬，低头玩手机", optE: "瞬间脸红，想找个地缝钻进去" },
             { dim: "sex", text: "和好朋友聊到亲密话题时，你？", optA: "坦然分享心得，甚至可以开研讨会", optB: "适度聊聊，不会刻意回避", optC: "看对方聊什么再决定参不参与", optD: "尽量岔开话题，不太自在", optE: "坚决不聊，这是我的绝对禁区" },
             { dim: "sex", text: "看到街上有情侣热吻，你？", optA: "内心赞叹“真甜啊”，甚至想鼓掌", optB: "觉得挺正常，年轻人嘛", optC: "没什么特别感觉", optD: "觉得有点过了，公共场合注意点", optE: "快速走过并小声嘀咕“有伤风化”" },
             { dim: "sex", text: "你更认同下面哪句？", optA: "欲望是生命的燃料，坦坦荡荡没什么好藏的", optB: "适度表达欲望是健康的", optC: "每个人不一样，不好说", optD: "有些欲望适合藏在心里", optE: "欲望是麻烦的源头，最好清心寡欲" },
-
-            // dim: social (E=外向 vs I=内向)
             { dim: "social", text: "周五晚上收到聚会邀请，你的第一反应？", optA: "立刻回复“马上到！”，顺便问能不能多带几个朋友", optB: "挺开心的，答应参加", optC: "看看当天状态再决定", optD: "有点犹豫，需要做心理建设", optE: "开始编造理由：“哎呀我家猫今天心情不好”" },
             { dim: "social", text: "和不熟的人共处一室，你感觉？", optA: "舒服，甚至可以开启话痨模式", optB: "还行，能聊几句", optC: "看对方是什么人", optD: "有点局促，不太知道说什么", optE: "度秒如年，空气仿佛凝固，想原地消失" },
             { dim: "social", text: "团建的时候你通常？", optA: "自动成为气氛组，组织游戏唱K一条龙", optB: "积极参与，配合大家", optC: "随大流，不主动也不拒绝", optD: "安静跟着，需要时才发言", optE: "默默坐在角落，祈祷别点到自己" },
             { dim: "social", text: "理想周末是？", optA: "约三五好友，户外浪到飞起", optB: "和朋友吃个饭聚聚", optC: "看心情，可能出门可能宅", optD: "大部分时间独处，偶尔见人", optE: "手机静音，与世隔绝，被窝即天堂" },
             { dim: "social", text: "在电梯遇到半熟不熟的人，你会？", optA: "主动打招呼，顺便聊几句天气", optB: "微笑点头，说声你好", optC: "看对方反应再决定", optD: "假装看手机，避免眼神接触", optE: "紧盯楼层数字，心里默念“快开门快开门”" },
             { dim: "social", text: "社交对你的意义？", optA: "充电！越聊越精神，人群是能量源泉", optB: "挺享受的，但适度就好", optC: "社交和工作一样，是生活的一部分", optD: "有点消耗能量，需要控制时间", optE: "放电！每次社交完需要独处三天回血" },
-
-            // dim: emotion (S=稳定 vs N=敏感)
             { dim: "emotion", text: "被老板当众批评后，你？", optA: "冷静分析哪里错了，五分钟后就没事了", optB: "稍微有点不舒服，但很快调整好", optC: "当时有点情绪，过会儿就好了", optD: "心里难受挺久，反复回想", optE: "表面镇定，内心已开始写辞职信并幻想流浪" },
             { dim: "emotion", text: "看完一部催泪电影，你通常？", optA: "感动归感动，转头就忘了", optB: "有点感触，但不影响心情", optC: "当时挺感动，第二天就好了", optD: "情绪起伏较大，需要缓一缓", optE: "哭到隐形眼镜都掉了，三天缓不过来" },
             { dim: "emotion", text: "别人说你“太敏感了”，你的反应？", optA: "完全不在意，觉得对方不了解自己", optB: "稍微想想，但不会纠结", optC: "看是谁说的，重要的人会反思一下", optD: "有点受伤，开始反思自己", optE: "瞬间emo，开始怀疑人生的意义" },
             { dim: "emotion", text: "计划突然改变时，你？", optA: "没事，随机应变是我的中间名", optB: "调整一下就好了", optC: "需要一点时间适应", optD: "有点烦躁但能接受", optE: "内心已崩溃，表面还得保持微笑" },
             { dim: "emotion", text: "深夜一个人时，你容易？", optA: "倒头就睡，睡眠质量一级棒", optB: "想想明天的事就睡了", optC: "偶尔会想东想西", optD: "经常复盘今天说错的每一句话", optE: "越想越清醒，焦虑到失眠" },
             { dim: "emotion", text: "朋友开玩笑过火时，你？", optA: "当场怼回去，或者一笑了之", optB: "笑笑就算了", optC: "心里有点介意但不会说", optD: "表面跟着笑，心里不太舒服", optE: "表面跟着笑，心里已记在小本本上了" },
-
-            // dim: action (P=行动派 vs L=拖延症)
             { dim: "action", text: "任务截止日期还有一周，你？", optA: "已完成了80%，正在润色", optB: "已经开始做了，进度不错", optC: "有了大致计划，准备开始", optD: "还在酝酿，过两天再说", optE: "还有一周？那最后一天再说，问题不大" },
             { dim: "action", text: "你的电脑桌面/房间状态？", optA: "整整齐齐，每样东西都有固定位置", optB: "比较整洁，偶尔整理", optC: "不算乱也不算整齐", optD: "有点乱但大概知道东西在哪", optE: "乱中有序，只有我自己能找到东西（大概）" },
             { dim: "action", text: "旅行前做攻略，你？", optA: "精确到小时的行程表，连厕所时间都规划好", optB: "做个大致计划，重点地方安排好", optC: "看看攻略但留很多弹性", optD: "大概看看，走到哪算哪", optE: "订张机票，其他全靠缘分和手机电量" },
             { dim: "action", text: "早上闹钟响起，你？", optA: "一个鲤鱼打挺起床，洗漱晨跑", optB: "按掉就起来，不赖床", optC: "偶尔赖几分钟", optD: "按掉再眯一会儿", optE: "按掉，再睡五分钟…一小时后惊醒" },
             { dim: "action", text: "收到工作消息，你通常？", optA: "秒回，并立刻开始行动", optB: "尽快回复并安排时间做", optC: "先看看，不急的话等会回", optD: "已读，想着晚点再处理", optE: "已读，标记为未读，假装没看到" },
             { dim: "action", text: "对于待办清单，你的态度是？", optA: "没有清单活不下去，打完勾的瞬间最爽", optB: "会列清单，但不会太严格", optC: "偶尔列一下，经常忘了看", optD: "脑子里有数就行，不用写", optE: "清单是什么？自由发挥才是灵魂" },
-
-            // dim: think (T=理性 vs F=感性)
             { dim: "think", text: "做人生重大决定时，你更依赖？", optA: "Excel表格、数据分析和利弊清单", optB: "理性分析为主，也会参考直觉", optC: "理性感性各一半", optD: "直觉感受占主导，辅以分析", optE: "内心感觉，跟着直觉走就对了" },
             { dim: "think", text: "好朋友哭诉失恋，你第一反应？", optA: "帮他分析问题出在哪，给出理性建议", optB: "先听他说，再给一些建议", optC: "既安慰也分析，平衡处理", optD: "先安慰，等他情绪平复再说", optE: "先递纸巾，陪他一起骂渣男/渣女" },
             { dim: "think", text: "吵架时，你更看重？", optA: "逻辑和事实，谁有道理谁赢", optB: "道理为主，但也照顾情绪", optC: "道理和情绪都要兼顾", optD: "态度和语气很重要", optE: "态度和语气，你凶我就是你不对" },
             { dim: "think", text: "看到一部烧脑悬疑片，你？", optA: "沉迷于解谜，享受逻辑被挑战的快感", optB: "边看边推理，挺享受的", optC: "既关注剧情也关注情感", optD: "更关注角色的命运和情感", optE: "完全沉浸在氛围和情感中，逻辑漏洞无所谓" },
             { dim: "think", text: "你更欣赏哪种人？", optA: "冷静理性、头脑清晰的人", optB: "理性但不失温度的人", optC: "理性和感性平衡的人", optD: "温暖有共情力的人", optE: "情感丰富、能与你心灵共鸣的人" },
             { dim: "think", text: "买礼物时，你通常？", optA: "根据对方需求清单，选最实用的", optB: "实用为主，也考虑对方喜好", optC: "实用和心意各占一半", optD: "更看重心意和当时的灵感", optE: "完全凭感觉，觉得对方会喜欢就买" },
-
-            // dim: adventure (A=冒险 vs C=谨慎)
             { dim: "adventure", text: "有一个跳槽去初创公司的机会，你？", optA: "兴奋！高风险高回报，拼了", optB: "认真评估后可能会去", optC: "权衡利弊，难以决定", optD: "倾向留在原地，但会认真考虑", optE: "纠结三周，最终求稳留在原公司" },
             { dim: "adventure", text: "手头有笔闲钱，你会？", optA: "研究加密货币或股票，搏一搏单车变摩托", optB: "部分稳健部分投资", optC: "分散配置，平衡风险和收益", optD: "大部分稳健，小部分尝试", optE: "放进定期存款或余额宝，利息少但安心" },
             { dim: "adventure", text: "对于蹦极、跳伞这类极限运动，你？", optA: "人生清单必做！想想就肾上腺素飙升", optB: "有机会可以试试", optC: "不确定，可能会也可能不会", optD: "有点怕，大概率不会去", optE: "打死我也不会去，地面最安全" },
@@ -572,14 +223,13 @@
             adventure: { first: "冒险", second: "谨慎" }
         };
 
-        // 选项分数映射: A=2, B=1, C=0, D=-1, E=-2
         const scoreMap = { 'A': 2, 'B': 1, 'C': 0, 'D': -1, 'E': -2 };
         const optionLabels = ['A', 'B', 'C', 'D', 'E'];
         const intensityLabels = ['完全符合', '有点符合', '中立', '有点符合', '完全符合'];
 
         let questions = [];
         let currentQ = 0;
-        let answers = new Array(12).fill(null); // 存'A'~'E'
+        let answers = new Array(12).fill(null);
 
         function generateRandomQuestions() {
             const selected = [];
@@ -591,7 +241,6 @@
             return selected.sort(() => Math.random() - 0.5);
         }
 
-        // 人格数据库
         const personalityDB = [
             { code: "OESPTA", name: "社交恐怖分子", emoji: "🎉", rarity: "common", desc: "你就是人群中的高音喇叭，欲望直白，行动力爆炸。朋友聚会没你不行，但你一来屋顶都能掀翻。", traits: ["人来疯晚期", "欲望写在脸上", "行动比脑子快", "笑声震碎玻璃"], summary: "开放+外向+稳定+行动派+理性+冒险 = 行走的派对永动机。你的存在本身就是一个巨大的感叹号，永远在探索、表达和冲锋的路上。" },
             { code: "OESPTC", name: "精致利己的咸鱼", emoji: "🛁", rarity: "common", desc: "思想上无比开放，行动上却精打细算。你享受生活，但绝不吃亏，是朋友圈里最会过日子的精致懒人。", traits: ["享乐主义", "规划躺平", "外表精致", "暗中观察"], summary: "开放+外向+稳定+行动派+理性+谨慎 = 人间清醒享乐派。你知道怎么让自己最舒服，而且总能优雅地避开所有坑。" },
@@ -638,38 +287,22 @@
             const scores = { sex: 0, social: 0, emotion: 0, action: 0, think: 0, adventure: 0 };
             questions.forEach((q, idx) => {
                 const ans = answers[idx];
-                if (ans && scoreMap[ans] !== undefined) {
-                    scores[q.dim] += scoreMap[ans];
-                }
+                if (ans && scoreMap[ans] !== undefined) scores[q.dim] += scoreMap[ans];
             });
-            // 每个维度总分>0则赋第一个字母，否则第二个字母
             let userCode = "";
-            dimKeys.forEach(dim => {
-                userCode += (scores[dim] > 0) ? dimFirstLetter[dim] : dimSecondLetter[dim];
-            });
-
-            let bestPersonality = null;
-            let bestDist = Infinity;
-            if (personalityMap.has(userCode)) {
-                bestPersonality = personalityMap.get(userCode);
-                bestDist = 0;
-            } else {
+            dimKeys.forEach(dim => { userCode += (scores[dim] > 0) ? dimFirstLetter[dim] : dimSecondLetter[dim]; });
+            let bestPersonality = null, bestDist = Infinity;
+            if (personalityMap.has(userCode)) { bestPersonality = personalityMap.get(userCode); bestDist = 0; }
+            else {
                 for (let p of personalityDB) {
                     let dist = 0;
-                    for (let i = 0; i < 6; i++) {
-                        if (userCode[i] !== p.code[i]) dist++;
-                    }
-                    if (dist < bestDist) { bestDist = dist;
-                        bestPersonality = p; }
+                    for (let i = 0; i < 6; i++) if (userCode[i] !== p.code[i]) dist++;
+                    if (dist < bestDist) { bestDist = dist; bestPersonality = p; }
                 }
             }
-
             const matchPercent = Math.round(((6 - bestDist) / 6) * 100);
             const dimHits = {};
-            dimKeys.forEach((dim, i) => {
-                dimHits[dim] = (userCode[i] === bestPersonality.code[i]);
-            });
-
+            dimKeys.forEach((dim, i) => { dimHits[dim] = (userCode[i] === bestPersonality.code[i]); });
             return { userCode, bestPersonality, matchPercent, dimHits, bestDist, scores };
         }
 
@@ -687,30 +320,34 @@
             const selected = answers[currentQ];
             const optKeys = ['A', 'B', 'C', 'D', 'E'];
             const optValues = [q.optA, q.optB, q.optC, q.optD, q.optE];
-
             let optionsHTML = '';
             optKeys.forEach((key, i) => {
                 const isMid = (key === 'C');
                 const isSel = (selected === key);
-                optionsHTML += `
-            <div class="opt-btn${isMid ? ' opt-mid' : ''}${isSel ? ' selected' : ''}" onclick="selectAnswer('${key}')">
-              <span class="opt-letter">${key}</span>
-              <span class="opt-text">${optValues[i]}</span>
-              <span class="opt-intensity">${intensityLabels[i]}</span>
-            </div>`;
+                optionsHTML += `<div class="opt-btn${isMid ? ' opt-mid' : ''}${isSel ? ' selected' : ''}" onclick="selectAnswer('${key}')">
+                    <span class="opt-letter">${key}</span>
+                    <span class="opt-text">${optValues[i]}</span>
+                    <span class="opt-intensity">${intensityLabels[i]}</span>
+                </div>`;
             });
-
-            qContainer.innerHTML = `
-          <div class="question-card">
-            <div class="q-text">${currentQ+1}. ${q.text}</div>
-            <div class="options">${optionsHTML}</div>
-          </div>`;
+            qContainer.innerHTML = `<div class="question-card">
+                <div class="q-text">${currentQ+1}. ${q.text}</div>
+                <div class="options">${optionsHTML}</div>
+            </div>`;
             updateNavButtons();
             updateProgress();
         }
 
-        function selectAnswer(choice) { answers[currentQ] = choice;
-            renderQuestion(); }
+        function selectAnswer(choice) {
+            answers[currentQ] = choice;
+            // 📊 上报答题事件
+            reportToJianDaoYun({
+                type: '答题',
+                question: `Q${currentQ+1}`,
+                answer: choice
+            });
+            renderQuestion();
+        }
 
         function updateNavButtons() {
             prevBtn.style.display = currentQ === 0 ? 'none' : 'inline-block';
@@ -732,11 +369,16 @@
             progressText.textContent = `第 ${currentQ+1}/${questions.length} 题`;
         }
 
-        function nextQuestion() { if (currentQ < questions.length - 1 && answers[currentQ] !== null) { currentQ++;
-                renderQuestion(); } }
+        function nextQuestion() {
+            if (currentQ < questions.length - 1 && answers[currentQ] !== null) {
+                currentQ++;
+                renderQuestion();
+            }
+        }
 
-        function prevQuestion() { if (currentQ > 0) { currentQ--;
-                renderQuestion(); } }
+        function prevQuestion() {
+            if (currentQ > 0) { currentQ--; renderQuestion(); }
+        }
 
         function calcResult() {
             if (answers.includes(null)) return;
@@ -746,6 +388,12 @@
             const rarity = personality.rarity;
             const rarityName = rarityNames[rarity];
             const rarityClass = 'rarity-' + rarity;
+
+            // 📊 上报最终结果
+            reportToJianDaoYun({
+                type: '查看结果',
+                result: personality.code
+            });
 
             qContainer.innerHTML = '';
             document.getElementById('navButtons').style.display = 'none';
@@ -758,47 +406,40 @@
                 const letter = personality.code[dimOrder.indexOf(dim)];
                 return `<span class="dim-dot ${hit ? 'hit' : 'miss'}" title="${dimLabels[dim].first} / ${dimLabels[dim].second}">${letter}</span>`;
             }).join('');
-
             const hitCount = 6 - bestDist;
             const matchEmoji = isPerfect ? '🎯' : (matchPercent >= 83 ? '👍' : (matchPercent >= 67 ? '🤔' : '🔍'));
 
             resultContainer.innerHTML = `
-          <div class="result-badge">
-            <div class="result-emoji">${personality.emoji}</div>
-            <div class="result-code">${personality.code}</div>
-            <div class="result-name">${personality.name}</div>
-            <span class="rarity-badge ${rarityClass}">${rarityName}</span>
-          </div>
-          <div class="match-section">
-            <div class="match-label">${matchEmoji} 命中匹配度</div>
-            <div class="match-percent${isPerfect ? ' perfect' : ''}">${matchPercent}%</div>
-            <div class="match-bar-outer">
-              <div class="match-bar-inner${isPerfect ? ' perfect' : ''}" style="width:${matchPercent}%;"></div>
-            </div>
-            <div class="match-detail">
-              6个维度命中 <span>${hitCount}/6</span>${isPerfect ? ' · 完美命中！你就是这个剧本的主角' : (bestDist === 1 ? ' · 仅1个维度略有偏差，但已足够精准' : ' · ' + bestDist + '个维度存在差异，但这就是真实的你')}
-            </div>
-            <div class="dim-match-row">${dimDotHTML}</div>
-            <div style="font-size:10px;color:#6e5c78;margin-top:6px;letter-spacing:1px;">
-              ${dimOrder.map(dim => dimLabels[dim].first + '/' + dimLabels[dim].second).join(' · ')}
-            </div>
-          </div>
-          <div class="result-desc">${personality.desc}</div>
-          <div class="result-summary">💡 <strong>性格核心解析：</strong>${personality.summary}</div>
-          <div class="result-traits">
-            ${personality.traits.map(t => `<span class="trait-tag">${t}</span>`).join('')}
-          </div>
-          <div class="share-box">
-            <p style="color:#bcacc4; margin-bottom:8px;">📤 分享你的HPTI人格</p>
-            <textarea class="share-text" id="shareText" readonly rows="5">🔮 我的HPTI人格：${personality.code} 「${personality.name}」${personality.emoji}
-        稀有度：${rarityName} | 命中匹配度：${matchPercent}%（${hitCount}/6维度命中）
-        ${personality.desc}
-        来测测你的HPTI隐秘人格类型！</textarea>
-            <button class="copy-btn" onclick="copyShare()">📋 复制文案</button>
-          </div>
-          <div style="text-align:center; margin-top:24px;">
-            <button class="btn btn-primary" onclick="restartTest()">🔄 重新测试（换一批题）</button>
-          </div>`;
+                <div class="result-badge">
+                    <div class="result-emoji">${personality.emoji}</div>
+                    <div class="result-code">${personality.code}</div>
+                    <div class="result-name">${personality.name}</div>
+                    <span class="rarity-badge ${rarityClass}">${rarityName}</span>
+                </div>
+                <div class="match-section">
+                    <div class="match-label">${matchEmoji} 命中匹配度</div>
+                    <div class="match-percent${isPerfect ? ' perfect' : ''}">${matchPercent}%</div>
+                    <div class="match-bar-outer"><div class="match-bar-inner${isPerfect ? ' perfect' : ''}" style="width:${matchPercent}%;"></div></div>
+                    <div class="match-detail">6个维度命中 <span>${hitCount}/6</span>${isPerfect ? ' · 完美命中！' : (bestDist === 1 ? ' · 仅1个维度略有偏差' : ' · ' + bestDist + '个维度存在差异')}</div>
+                    <div class="dim-match-row">${dimDotHTML}</div>
+                    <div style="font-size:10px;color:#6e5c78;margin-top:6px;letter-spacing:1px;">
+                        ${dimOrder.map(dim => dimLabels[dim].first + '/' + dimLabels[dim].second).join(' · ')}
+                    </div>
+                </div>
+                <div class="result-desc">${personality.desc}</div>
+                <div class="result-summary">💡 <strong>性格核心解析：</strong>${personality.summary}</div>
+                <div class="result-traits">${personality.traits.map(t => `<span class="trait-tag">${t}</span>`).join('')}</div>
+                <div class="share-box">
+                    <p style="color:#bcacc4; margin-bottom:8px;">📤 分享你的HPTI人格</p>
+                    <textarea class="share-text" id="shareText" readonly rows="5">🔮 我的HPTI人格：${personality.code} 「${personality.name}」${personality.emoji}
+稀有度：${rarityName} | 命中匹配度：${matchPercent}%（${hitCount}/6维度命中）
+${personality.desc}
+来测测你的HPTI隐秘人格类型！</textarea>
+                    <button class="copy-btn" onclick="copyShare()">📋 复制文案</button>
+                </div>
+                <div style="text-align:center; margin-top:24px;">
+                    <button class="btn btn-primary" onclick="restartTest()">🔄 重新测试（换一批题）</button>
+                </div>`;
             resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
